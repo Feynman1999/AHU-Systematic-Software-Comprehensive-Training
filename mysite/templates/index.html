@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load staticfiles %}   <!-- 虽然extends了 但还是要加上 -->
+
+{% block title %}
+    主页
+{% endblock %}
+
+{% block header_extend %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}"> 
+{% endblock  %}
+
+{% block nav_index_active %}
+    active
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-xs-offset-0 col-md-10 col-md-offset-1">
+            <h1 style="text-align:center;">类银行家算法模拟实现</h1>
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="col-xs-12 col-xs-offset-0 col-md-10 col-md-offset-1">
+                <form class="form-horizontal" action="{% url 'experiment_detail' 0 %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="title" class="col-sm-2  col-sm-offset-0 control-label" style="text-align:center;">实验标题</label>
+                        <div class="col-sm-7">
+                            <input type="text" name="title" class="form-control" id="title" placeholder="请输入实验标题">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="nnn" class="col-sm-2 control-label" style="text-align:center;">客户数</label>
+                        <div class="col-sm-2">
+                            <input type="number" name="nnn" class="form-control" id="nnn">
+                        </div>
+                        <label for="mmm" class="col-sm-2 control-label" style="text-align:center;">资源种类数</label>
+                        <div class="col-sm-2">
+                            <input type="number" name="mmm" class="form-control" id="mmm">
+                        </div>
+                        <label for="inputtype3" class="col-sm-1 control-label" style="text-align:center;">类别</label>
+                        <div class="col-sm-3">
+                            <select class="form-control" name="type">
+                                {% for type in  types%}
+                                    <option>{{type.type_name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="col-sm-offset-10 col-sm-2">
+                        <button type="submit" class="btn btn-primary btn-lg" id="submit_button">新增实验</button>
+                    </div>
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock  %}
+
+{% block script %}
+<script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+
+
+{% endblock  %}
+

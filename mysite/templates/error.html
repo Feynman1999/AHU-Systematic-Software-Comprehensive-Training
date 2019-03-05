@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load staticfiles %}   <!-- 虽然extends了 但还是要加上 -->
+
+{% block title %}
+    error
+{% endblock %}
+
+<!-- {% block header_extend %}
+ 
+{% endblock  %} -->
+
+
+{% block content %}
+<div id="myAlert" class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>{{message}}, <a href="{{ redirect_to }}">点此返回</a></strong>
+</div>
+
+
+{% endblock  %}
+

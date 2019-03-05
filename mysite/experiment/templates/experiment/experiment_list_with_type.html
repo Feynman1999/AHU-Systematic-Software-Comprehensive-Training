@@ -1,0 +1,19 @@
+{% extends 'experiment/experiment_list.html' %}
+{% load staticfiles %}
+
+
+{% block title %}
+    tag: {{experiment_type.type_name}}
+{% endblock %}
+
+
+{% block nav_experiment_list_active %}
+    active
+{% endblock %}
+
+
+{% block experiment_type_name %}
+    当前分类：{{experiment_type.type_name}}
+{% endblock  %}
+    
+

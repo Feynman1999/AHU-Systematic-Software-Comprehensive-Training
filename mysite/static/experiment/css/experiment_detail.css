@@ -1,0 +1,46 @@
+div.panel-body ul li{
+    list-style: none;
+}
+
+div.panel-body ul li:nth-child(-n+6){
+    border-bottom: 1px dashed rgb(154, 194, 154);
+}
+
+div.panel-body ul{
+    padding-left: 20px;
+    padding-right: 30px;
+}
+
+div.panel-body{
+    min-height: 117px;
+    max-height: 117px;
+}
+
+div#n-number, div#m-number{
+    font-size: 3.8em;
+}
+
+nav.navbar{
+    margin-bottom: 0px;
+}
+
+ul.experiment-info-description{
+    list-style-type: none;
+    text-align: center;
+    margin-top: 1.5em;
+}
+
+ul.experiment-info-description li{
+    display: inline-block;
+    margin-right: 3em;
+}
+
+div.experiment-content{
+    /* text-indent: 2em;   首行缩进两个字符 */
+    margin-bottom: 3em;
+    margin-top: 3em;
+}
+
+div.experiment-more{
+    font-weight:bold;
+}

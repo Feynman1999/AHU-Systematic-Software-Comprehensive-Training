@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load staticfiles %}   <!-- 虽然extends了 但还是要加上 -->
+
+
+{% block title %}历史记录列表{% endblock %}
+
+{% block header_extend %}
+    <link rel="stylesheet" href="{% static 'experiment/css/experiment_list.css' %}"> 
+{% endblock  %}
+
+{% block nav_experiment_list_active %}
+    active
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-9 col-md-9">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><b>{% block experiment_type_name %}全部实验{% endblock %}</b> &nbsp;(当前页{{page_of_experiments.object_list.count}}个, 共{{page_of_experiments.paginator.count}}个)</h3>
+                </div>
+                <div class="panel-body">
+                    {% for experiment in page_of_experiments.object_list %}
+                        <div class="experiment">
+                            <h3><a href='{% url 'experiment_detail' experiment.pk %}'>{{experiment.title}} </a></h3> 
+                            <p class="experiment-info">
+                                <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
+                                <a href={% url 'experiment_list_with_type' experiment.experiment_type.pk %}>
+                                    {{experiment.experiment_type}}
+                                </a> &nbsp;
+                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                {{experiment.created_time | date:"Y-m-d H:i:s"}}&nbsp;&nbsp;
+                            </p>
+                        </div>
+                    {% empty %}
+                        <div class="experiment">
+                            <h3> ---- 暂无实验 ---- </h3>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div aria-label="Page navigation" class="paginator">
+                <p style="margin-bottom:0px;">
+                    当前第{{page_of_experiments.number}}页，共{{page_of_experiments.paginator.num_pages}}页
+                </p>
+                <ul class="pagination">
+                    {% if page_of_experiments.has_previous %}
+                        <li title="上一页">
+                            <a href="?page={{page_of_experiments.number | add:-1}}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="disabled" title="已经是第一页啦">
+                            <a href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+
+
+                    {% if page_range.0 > 2 %}
+                        <li><a href="?page=1">1</a></li>
+                    {% endif %}
+                    {% if page_range.0 > 1 %}
+                        <li><a>...</a></li>
+                    {% endif %}
+                    
+
+                    {% for page_id in page_range %}  <!-- page_of_experiments.paginator.page_range -->
+                        <li {% ifequal page_id page_of_experiments.number %} class="active"{% endifequal %}>
+                            <a href="?page={{page_id}}">{{page_id}}</a>
+                        </li>
+                    {% endfor %}
+
+
+                    {% if page_range|last < page_of_experiments.paginator.num_pages %}
+                        <li><a>...</a></li>
+                    {% endif %}
+                    {% if page_range|last < page_of_experiments.paginator.num_pages|add:-1 %}
+                        <li>
+                            <a href="?page={{page_of_experiments.paginator.num_pages}}">{{page_of_experiments.paginator.num_pages}}</a>
+                        </li>
+                    {% endif %}
+
+                    
+                    {% if page_of_experiments.has_next %}
+                        <li title="下一页">
+                            <a href="?page={{page_of_experiments.number|add:1}}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="disabled" title="已经是最后一页啦">
+                            <a href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div class="hidden-xs col-sm-3 col-md-3">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><b>实验分类</b></h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="experiment-types">
+                        {% for item in experiment_types %}
+                            <li><a href={% url 'experiment_list_with_type' item.pk %}>
+                                {% ifequal item.pk experiment_type.pk %}
+                                    <b>{{item.type_name}} ({{item.experiment_count}})</b>
+                                {% else %}
+                                    {{item.type_name}} ({{item.experiment_count}})
+                                {% endifequal %}
+                            </a></li> 
+                        {% empty %}
+                            <li>暂无分类</li>
+                        {% endfor %}    
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock  %}
+

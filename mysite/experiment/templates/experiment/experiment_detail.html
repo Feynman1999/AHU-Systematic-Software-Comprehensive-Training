@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load staticfiles %}   <!-- 虽然extends了 但还是要加上 -->
+
+{% block title %}{{experiment.title}}{% endblock %}
+
+{% block header_extend %}
+    <link rel="stylesheet" href="{% static 'experiment/css/experiment_detail.css' %}">
+    <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+{% endblock %}
+
+{% block nav_experiment_list_active %}
+    active
+{% endblock %}
+
+{% block content %}
+
+{% ifequal 0 status_mark %} 
+<div id="myAlert" class="alert alert-danger fade in">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>还未初始化数据 请通过<a href="{% url 'index' %}">首页</a>(算法模拟室)↑↑↑进行提交</strong>
+</div>
+{% endifequal %}
+
+{% ifequal 1 status_mark %} 
+<div id="myAlert" class="alert alert-success fade in">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>成功生成实验，已初始化数据!</strong>
+</div>
+{% endifequal %}
+  
+{% ifequal 2 status_mark %} 
+<div id="myAlert" class="alert alert-warning fade in">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>算法正在运行，您可以实时看到结果</strong>
+</div>
+{% endifequal %}
+
+{% ifequal 3 status_mark %} 
+<div id="myAlert" class="alert alert-info fade in">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>算法已经执行完毕！</strong>
+</div>
+{% endifequal %}
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-xs-offset-0 col-md-10 col-md-offset-1"> <!-- 偏移一个单位 达到居中的效果 -->
+          <h1 align="center" style="margin-top: 40px;"><span id="for-get-id">{{experiment_id}}</span>. {{experiment.title}}</h1>
+          <ul class="experiment-info-description">
+              <li><span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
+              <a href={% url 'experiment_list_with_type' experiment.experiment_type.pk %}>
+                  {{experiment.experiment_type}}
+              </a></li>
+              <li><span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{experiment.created_time | date:"Y-m-d H:i:s"}}</li>
+              <li><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> {{experiment.last_updated_time | date:"Y-m-d H:i:s"}}</li>
+          </ul>
+          <div class="experiment-content">
+              <div class="row">
+                <div class="col-xs-4">
+                    <div class="panel panel-primary ">
+                        <div class="panel-heading">
+                          <h3 class="panel-title"><b>客户数</b></h3>
+                        </div>
+                        <div id="n-number" class="panel-body">
+                            {{nnn}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                          <h3 class="panel-title"><b>资源种类数</b></h3>
+                        </div>
+                        <div id="m-number" class="panel-body">
+                            {{mmm}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                          <h3 class="panel-title"><b>参数设置(初始化范围)</b></h3>
+                        </div>
+                        <div class="panel-body">
+                          <ul>
+                            <li class="pull-right"><span class="glyphicon glyphicon-scale" aria-hidden="true"></span>&nbsp; {{para.0}}~{{para.1}}</li>
+                            <li><span class="glyphicon glyphicon-fire" aria-hidden="true"></span>&nbsp; allocation </li>
+                            <li class="pull-right"><span class="glyphicon glyphicon-scale" aria-hidden="true"></span>&nbsp; {{para.2}}~{{para.3}}</li>
+                            <li><span class="glyphicon glyphicon-fire" aria-hidden="true"></span>&nbsp; need </li>
+                            <li class="pull-right"><span class="glyphicon glyphicon-scale" aria-hidden="true"></span>&nbsp; {{para.4}}~{{para.5}}</li>
+                            <li><span class="glyphicon glyphicon-fire" aria-hidden="true"></span>&nbsp; time </li>
+                            <li class="pull-right"><span class="glyphicon glyphicon-scale" aria-hidden="true"></span>&nbsp; {{para.6}}~{{para.7}}</li>
+                            <li><span class="glyphicon glyphicon-fire" aria-hidden="true"></span>&nbsp; available </li>
+                          </ul>
+                        </div>
+                    </div>
+                </div>
+              </div>
+          </div>
+      </div>
+    </div><br><br>
+
+
+    <div class="row">
+      <div id="chart-n" class="col-xs-12 col-xs-offset-0 col-md-10 col-md-offset-1">
+      </div>
+    </div><br><br>
+
+
+    <div class="row">  <!-- experiment more -->
+      <div class="col-xs-11 col-xs-offset-0 col-md-9 col-md-offset-1">
+          <div class="experiment-more">
+              <p>
+                上一个实验: &nbsp; 
+                {% if previous_experiment.title %}
+                  <a href="{% url 'experiment_detail' previous_experiment.pk %}">{{ previous_experiment.title }}</a>
+                {% else %}
+                  当前已经是最新的实验记录啦^_^
+                {% endif %}
+              </p>
+              <p>
+                下一个实验: &nbsp;               
+                {% if next_experiment.title %}
+                  <a href="{% url 'experiment_detail' next_experiment.pk %}">{{ next_experiment.title }}</a>
+                {% else %}
+                  当前已经是最后一个实验记录啦^_^
+                {% endif %}
+              </p>
+          </div>
+      </div>
+      <div class="col-xs-1 col-md-1" style="padding-left:7px;padding-right:7px;">
+          O(∩_∩)O
+      </div>
+    </div><br><br><br><br><br><br><br><br><br><br>
+
+
+  </div>
+{% endblock  %}
+
+
+
+{% block script %}
+
+<script type="text/javascript">
+// 造一份format轮子 方便插入html代码
+String.prototype.format = function(){// '{0}+{1}'.format(a,b) = 'a+b'
+  var str = this;
+  for (var i = 0; i < arguments.length; i++) {
+    var str = str.replace(new RegExp('\\{'+i+'\\}', 'g'), arguments[i])
+  };
+  return str;
+}
+</script>
+
+{% endblock %}

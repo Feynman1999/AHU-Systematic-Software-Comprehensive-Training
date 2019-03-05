@@ -1,0 +1,27 @@
+加入其它chart
+
+dfs
+
+每隔2s进行轮询显示
+
+over
+
+
+
+
+
+
+
+
+页面id          
+强行加入span id  原因:不在一个页面里，不能用django template lanuage
+
+已有长度  
+chindren.length
+
+建立json文件后将内容写入缓存表 和 直接读文件速度差不多
+
+
+采用双重时间间隔限制提交ajax  前端使用了cookie存last time
+
+
