@@ -14,7 +14,6 @@ from .random_init import *
 def SuccessResponse(data):
     data['status'] = 'SUCCESS'
     cache.set('get_nnn_chart', time.time())
-    print(time.time())
     return JsonResponse(data)
 
 
@@ -28,10 +27,9 @@ def ErrorResponse(code, message):
 
 # 添加一条顾客信息
 def update_n(request):
-    print(time.time())
     time_gap = cache.get('get_nnn_chart')
-    if (not time_gap is None) and time.time()-time_gap < 0.4:
-        return ErrorResponse(403, '操作过于频繁! limit: 400ms')
+    if (not time_gap is None) and time.time()-time_gap < 0.3:
+        return ErrorResponse(403, '操作过于频繁! limit: 300ms')
     data = {}
     lastn = int(request.GET.get("lastn", 0))
     nnn= int(request.GET.get("nnn", 0))

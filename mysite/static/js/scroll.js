@@ -15,8 +15,8 @@ function scrollFunction(){
     var last = getCookie("last_time")
     if (last==""){last = 0}
     else {last = parseInt(last)}
-    if ($(document).scrollTop()+0.5>= $(document).height() - $(window).height() && now-last>=400 &&$("#chart-n").length > 0 ){//最后一项判断在detail页面
-        //$('body').css('overflow','hidden');
+    if ($(document).scrollTop()+10>= $(document).height() - $(window).height() && now-last>=300 && $("#chart-n").length > 0 ){//最后一项判断在detail页面
+        $('body').css('overflow','hidden');
         document.cookie="last_time="+myDate.getTime();
         var experiment_id = parseInt($("#for-get-id").text())
         var nnn = parseInt($("#n-number").text()); //得到顾客数目
@@ -85,7 +85,7 @@ function scrollFunction(){
                 console.log(xhr)
             }
         });
-        //$('body').css('overflow','auto');
+        $('body').css('overflow','auto');
     };
 };
 
