@@ -45,8 +45,8 @@ def update_n(request):
     # 只需要n_id need allocation
     data['allocation'] = Dict['allocation'][lastn]
     data['need'] = Dict['need'][lastn]
-    data['n_id'] = Dict['n_id']
-
+    data['m_id'] = Dict['m_id']
+    print(data['m_id'])
     return SuccessResponse(data)
     
 

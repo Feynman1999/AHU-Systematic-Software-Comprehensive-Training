@@ -6,3 +6,8 @@
 *.pyc
 
 *.sqlite3
+
+*/migrations/
+
+*/data/
+mysite/experiment/migrations/
