@@ -7,4 +7,4 @@ urlpatterns = [
     path('update_n', update_n, name='update_n'),
     path('<int:experiment_id>', experiment_detail, name='experiment_detail'),
     path('type/<int:type_id>', experiment_list_with_type , name='experiment_list_with_type'),
-]
+]   
