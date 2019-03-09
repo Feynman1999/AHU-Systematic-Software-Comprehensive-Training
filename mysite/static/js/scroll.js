@@ -15,7 +15,7 @@ function scrollFunction(){
     var last = getCookie("last_time")
     if (last==""){last = 0}
     else {last = parseInt(last)}
-    if ($(document).scrollTop()+10>= $(document).height() - $(window).height() && now-last>=300 && $("#chart-n").length > 0 ){//最后一项判断在detail页面
+    if ($(document).scrollTop()+120>= $(document).height() - $(window).height() && now-last>=300 && $("#chart-n").length > 0 ){//最后一项判断在detail页面
         $('body').css('overflow','hidden');
         document.cookie="last_time="+myDate.getTime();
         var experiment_id = parseInt($("#for-get-id").text())
@@ -53,7 +53,6 @@ function scrollFunction(){
             },
             credits: {enabled: false},
         };
-
         $.ajax({
             url: "/experiment/update_n?lastn="+last_obj_id+"&experiment_id="+experiment_id+"&nnn="+nnn,
             type: 'GET',
@@ -78,7 +77,10 @@ function scrollFunction(){
                     var chart = Highcharts.chart(id, options);
               }
               else{
-                    console.log(data['code']+"  "+data['message'])
+                    console.log(data['code']+"  "+data['message']);
+                    if(now-last>=3000){
+                        alert(data['code']+"  "+data['message']);
+                    }
               }
             },
             error: function(xhr){
