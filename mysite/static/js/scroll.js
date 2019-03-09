@@ -66,7 +66,8 @@ function scrollFunction(){
                     console.log((last_obj_id+1)+"已插入")
                     options.title = new Object();
                     options.title.text = (last_obj_id+1)+'号顾客';
-                    options.xAxis.categories = data['n_id'];
+                    options.xAxis = new Object();
+                    options.xAxis.categories = data['m_id'];
                     options.series = new Array();
                     options.series[0] = new Object();
                     options.series[0].name = 'need';
