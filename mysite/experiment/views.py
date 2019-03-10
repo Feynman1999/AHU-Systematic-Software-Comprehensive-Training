@@ -24,6 +24,21 @@ def ErrorResponse(code, message):
     data['message'] = message
     return JsonResponse(data)
 
+def update_time_avliable(request):
+    data={}
+    experiment_id = request.GET.get('experiment_id',1)#得到实验的id
+    file_name = os.path.join(data_dir,str(experiment_id))
+    Dict = cache.get('experiment_'+str(experiment_id))
+    print(experiment_id)
+    if Dict is None:#排除从admin进入
+        raise ObjectDoesNotExist
+    
+    data['time'] = Dict['time']
+    data['available'] = Dict['available']
+    return SuccessResponse(data)
+
+
+    
 
 # 添加一条顾客信息
 def update_n(request):
