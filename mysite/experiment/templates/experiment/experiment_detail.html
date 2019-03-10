@@ -100,6 +100,13 @@
       </div>
     </div><br><br>
 
+    
+    <div class="row">
+        <div id="chart-time" class="col-xs-5 col-xs-offset-0 col-md-5 col-md-offset-1">
+        </div>
+        <div id="chart-avaliable" class="col-xs-5 col-xs-offset-0 col-md-5 col-md-offset-1">
+        </div>
+    </div><br><br>
 
     <div class="row">
       <div id="chart-n" class="col-xs-12 col-xs-offset-0 col-md-10 col-md-offset-1">
@@ -131,7 +138,8 @@
       <div class="col-xs-1 col-md-1" style="padding-left:7px;padding-right:7px;">
           O(∩_∩)O
       </div>
-    </div><br><br><br><br><br><br><br><br><br><br>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br>
 
 
   </div>
@@ -151,5 +159,7 @@ String.prototype.format = function(){// '{0}+{1}'.format(a,b) = 'a+b'
   return str;
 }
 </script>
+
+<script type="text/javascript" src="{% static 'js/time_avaliable.js' %}"></script>
 
 {% endblock %}
