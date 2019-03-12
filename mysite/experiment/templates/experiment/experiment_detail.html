@@ -98,9 +98,9 @@
               </div>
           </div>
       </div>
-    </div><br><br>
-
-    
+    </div>
+    <button type="button" class="btn btn-primary" style="margin-left: 50%;margin-top:0"><a style="text-decoration: none;color:white" href="{% url 'experiment_outcome'  experiment.pk   %}">开始试验</a></button>
+    <br><br>
     <div class="row">
         <div id="chart-time" class="col-xs-5 col-xs-offset-0 col-md-5 col-md-offset-1">
         </div>
@@ -144,8 +144,6 @@
 
   </div>
 {% endblock  %}
-
-
 
 {% block script %}
 
