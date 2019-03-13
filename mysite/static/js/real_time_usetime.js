@@ -33,7 +33,10 @@ function real_time_usetime() {
         },
         series: [{
             data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]  //图表初始化数据
-        }]
+        }],
+        credits:{
+            enabled: false // 禁用版权信息
+       }
     });
 
     function getFrom() {

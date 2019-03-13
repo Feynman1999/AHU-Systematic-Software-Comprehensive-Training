@@ -55,6 +55,7 @@ function scrollFunction(){
                 }
             },
             credits: {enabled: false},
+            
         };
         $.ajax({
             url: "/experiment/update_n?lastn="+last_obj_id+"&experiment_id="+experiment_id+"&nnn="+nnn,
