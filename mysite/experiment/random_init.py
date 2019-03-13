@@ -42,4 +42,15 @@ def init_basic(Id, n ,m):
     Dict["para"] = para
     with open(file_name, 'w') as f:
         json.dump(Dict, f)
-    
+
+#随机生成安全序列用于前端的测试
+def generate_safe_random(experiment_id):
+    #根据experimen_id读取相应json中的数据
+    file_name = os.path.join(data_dir, str(experiment_id))
+    with open(file_name+"_basic.json",'r') as load_f:
+        Dict = json.load(load_f)
+    nnn = Dict['nnn']#该实验最多的人数
+    seq = list(range(1,nnn+1))
+    random.shuffle(seq)
+    useTime = random.randint(1,10)
+    return seq,useTime

@@ -6,16 +6,13 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.db.models import ObjectDoesNotExist
 
-
 from .models import Experiment, ExperimentType
 from .random_init import *
-
 
 def SuccessResponse(data):
     data['status'] = 'SUCCESS'
     cache.set('get_nnn_chart', time.time())
     return JsonResponse(data)
-
 
 def ErrorResponse(code, message):
     data = {}
@@ -24,6 +21,7 @@ def ErrorResponse(code, message):
     data['message'] = message
     return JsonResponse(data)
 
+#读取时间和可分配资源数据
 def update_time_avliable(request):
     data={}
     experiment_id = request.GET.get('experiment_id',1)#得到实验的id
@@ -37,8 +35,14 @@ def update_time_avliable(request):
     data['available'] = Dict['available']
     return SuccessResponse(data)
 
-
-    
+#获取安全序列
+def update_safe_seq(request):
+    data={}
+    seq_id = request.GET.get('seq_id',1)#得到要获取安全序列的编号
+    safe_seq,usetime = generate_safe_random(7)
+    data['safe_seq'] = safe_seq
+    data['usetime'] = usetime
+    return SuccessResponse(data)
 
 # 添加一条顾客信息
 def update_n(request):
@@ -157,3 +161,12 @@ def experiment_detail(request, experiment_id):
     else:
         pass
         return redirect(reverse('index'))
+
+#显示结果的url
+def experiment_outcome(request,experiment_id):
+    Dict = {}
+    Dict['experiment_id'] = experiment_id
+    Dict['experiment'] = get_object_or_404(Experiment, pk = experiment_id)
+    return render(request, "experiment/experiment_outcome.html", Dict)
+
+

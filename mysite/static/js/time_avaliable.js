@@ -56,6 +56,9 @@ function update_time_avaliable(){
                     name:'资源',
                     data: available_d,
                 }];
+                var credits = {
+                    enabled: false // 禁用版权信息
+               };
 
 
                 var json = {}
@@ -64,6 +67,7 @@ function update_time_avaliable(){
                 json.tooltip = tooltip;
                 json.series = series_time;
                 json.plotOptions = plotOptions;
+                json.credits = credits;
                 
                 //添加客户占用时间的饼图
                 var chart = Highcharts.chart('chart-time',json);
