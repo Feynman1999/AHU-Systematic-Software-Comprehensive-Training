@@ -1,6 +1,9 @@
 window.onscroll=function(){
+        
     scrollFunction();
+    
 };
+
 
 function scrollFunction(){
     if(document.body.scrollTop > 160 || document.documentElement.scrollTop > 160){
@@ -52,6 +55,7 @@ function scrollFunction(){
                 }
             },
             credits: {enabled: false},
+            
         };
         $.ajax({
             url: "/experiment/update_n?lastn="+last_obj_id+"&experiment_id="+experiment_id+"&nnn="+nnn,
@@ -117,3 +121,5 @@ function toUp(){
     // document.body.scrollTop = 0;
     // document.documentElement.scrollTop = 0;
 };
+
+
