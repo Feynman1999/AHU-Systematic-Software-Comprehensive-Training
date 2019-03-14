@@ -11,3 +11,5 @@
 
 */data/
 mysite/experiment/migrations/
+
+mysite/static/experiment/data/
