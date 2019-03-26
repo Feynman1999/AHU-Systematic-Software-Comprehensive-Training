@@ -81,7 +81,6 @@ class AllocatCls(object):
                 tmp = json.loads(now)
             tmp[self.NumSafe]=(self.Answer,TmpTime)
             json.dump(tmp,file_object,indent=4)
-        print(self.NumSafe)
     
     # 用于外部调用，开始查找安全序列
     def Run(self):
