@@ -1,25 +1,6 @@
 from queue import PriorityQueue as PQueue
 import json,os
 import numpy as np
-class RandomData(object):   
-    def __init__(self):
-        pass
-    
-    def random_Data(self,NumCustom, NumResource, SourceMaximum):#n是客户的数量，m是资源的种类，SourceMaximum是资源的最高阈值
-        # if SourceMaximum < 100:#资源最大阈值太小报错
-        #     print ("The maximum of source is too small!!!")
-        # else:
-        Available = np.random.uniform(SourceMaximum-10, SourceMaximum, NumResource).round().tolist()
-        #生成剩余系统资源，均匀分布
-        MaxSource = np.random.normal((SourceMaximum-10) * 13/30, (SourceMaximum-10) * 7/90, [NumCustom,NumResource]).round().tolist()
-        #生成客户对每种资源最大需求量；前两个参数分别为均值、标准差，常数因子的目的是为了让其数据分布满足特定均值、特定范围的正态分布
-        AllocatedSource = np.random.normal((SourceMaximum-10) / 10, (SourceMaximum-10) / 30, [NumCustom,NumResource]).round().tolist()
-        #生成客户每种资源的已经拥有量，方法与上述类似
-        OriginalNeedTime = np.random.uniform(1, NumCustom, NumCustom).round().tolist()
-        #生成客户对资源的占用时间，均匀分布
-        NeedTime = sorted(OriginalNeedTime)
-        return (Available, MaxSource, AllocatedSource, NeedTime)#返回这四个随机列表
-
 class Node(object):
     def __init__(self,NeedTime,Custom):
         self.NeedTime = NeedTime
