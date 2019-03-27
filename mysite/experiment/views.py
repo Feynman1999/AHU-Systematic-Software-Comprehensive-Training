@@ -1,4 +1,4 @@
-import os, json, time
+import os, json, time,threading
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.core.paginator import Paginator
 from django.core.cache import cache
@@ -8,6 +8,9 @@ from django.db.models import ObjectDoesNotExist
 
 from .models import Experiment, ExperimentType
 from .random_init import *
+from mysite.Allocation import allocation
+
+data_dir = os.path.join(settings.BASE_DIR,'static\\experiment\\data\\')
 
 def SuccessResponse(data):
     data['status'] = 'SUCCESS'
@@ -38,10 +41,20 @@ def update_time_avliable(request):
 #获取安全序列
 def update_safe_seq(request):
     data={}
+    Dict={}
+    experiment_id = request.GET.get('experiment_id',1)#得到实验ID
     seq_id = request.GET.get('seq_id',1)#得到要获取安全序列的编号
-    safe_seq,usetime = generate_safe_random(7)
+    file_name = os.path.join(data_dir, str(experiment_id))
+    with open(file_name+"_basic.json",'r') as load_f:
+        Dict = json.load(load_f)
+    clientNum = Dict['nnn']#获取客户数
+    resourceNUm = Dict['mmm']#获取资源数
+    if seq_id == '1':
+        t = threading.Thread(target=allocation, args=(clientNum,resourceNUm),name='AllocationThread')
+        t.start()
+    safe_seq,usetime = get_queue_and_time(seq_id)
     data['safe_seq'] = safe_seq
-    data['usetime'] = usetime
+    data['usetime'] =  usetime
     return SuccessResponse(data)
 
 # 添加一条顾客信息
