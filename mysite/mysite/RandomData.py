@@ -1,4 +1,4 @@
-﻿import numpy as np
+import numpy as np
 import operator
 
 class customer(object):  #客户类

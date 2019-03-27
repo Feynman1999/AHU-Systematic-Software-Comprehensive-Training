@@ -3,6 +3,7 @@ import os
 import json
 import math
 
+from json.decoder import JSONDecodeError
 from django.conf import settings
 
 data_dir = os.path.join(settings.BASE_DIR,'static\\experiment\\data\\')
@@ -42,4 +43,21 @@ def init_basic(Id, n ,m):
     Dict["para"] = para
     with open(file_name, 'w') as f:
         json.dump(Dict, f)
+
+#随机生成安全序列用于前端的测试
+def get_queue_and_time(sequeue_id):
+    #根据experimen_id读取相应json中的数据
+    file_name = os.path.join("./","SecurityList")#json文件在根目录下，不在data_dir中
+    seq = []
+    useTime = 0
+    with open(file_name+".json",'r') as load_f:
+        try:
+            Dict = json.load(load_f)
+            seq = Dict[str(sequeue_id)][0]
+            useTime = Dict[str(sequeue_id)][1]
+        except (KeyError,JSONDecodeError):  #该id所对应的值还没有生成
+            return 0,0
+        return seq,useTime
     
+
+

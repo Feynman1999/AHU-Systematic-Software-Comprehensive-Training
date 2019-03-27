@@ -1,6 +1,9 @@
 from queue import PriorityQueue as PQueue
 import json,os,copy
 import numpy as np
+
+from .RandomData import RandomData
+
 class Node(object):
     def __init__(self,NeedTime,Custom):
         self.NeedTime = NeedTime
@@ -162,16 +165,3 @@ class AllocatCls(object):
                     
         if CanAlloc == False: # 不满足分配条件，进入递归
             self.Search(TimeNow,System,AllocatedSource,CanAlloc,deep,WaitQueue)
-
-
-if __name__ == "__main__":
-    with open('data.json','r') as file_object:
-            now = file_object.read()
-    data = json.loads(now)
-    Available = data['Available']
-    MaxSource = data['MaxSource']
-    AllocatedSource = data['AllocatedSource']
-    NeedTime = data['NeedTime']
-    test = AllocatCls(10,10)
-    test.LoadData(Available, MaxSource, AllocatedSource, NeedTime)
-    test.Run()

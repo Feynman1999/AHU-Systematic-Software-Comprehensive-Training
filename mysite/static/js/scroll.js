@@ -1,6 +1,9 @@
 window.onscroll=function(){
+        
     scrollFunction();
+    
 };
+
 
 function scrollFunction(){
     if(document.body.scrollTop > 160 || document.documentElement.scrollTop > 160){
@@ -15,7 +18,7 @@ function scrollFunction(){
     var last = getCookie("last_time")
     if (last==""){last = 0}
     else {last = parseInt(last)}
-    if ($(document).scrollTop()+10>= $(document).height() - $(window).height() && now-last>=300 && $("#chart-n").length > 0 ){//最后一项判断在detail页面
+    if ($(document).scrollTop()+120>= $(document).height() - $(window).height() && now-last>=300 && $("#chart-n").length > 0 ){//最后一项判断在detail页面
         $('body').css('overflow','hidden');
         document.cookie="last_time="+myDate.getTime();
         var experiment_id = parseInt($("#for-get-id").text())
@@ -52,8 +55,8 @@ function scrollFunction(){
                 }
             },
             credits: {enabled: false},
+            
         };
-
         $.ajax({
             url: "/experiment/update_n?lastn="+last_obj_id+"&experiment_id="+experiment_id+"&nnn="+nnn,
             type: 'GET',
@@ -67,7 +70,8 @@ function scrollFunction(){
                     console.log((last_obj_id+1)+"已插入")
                     options.title = new Object();
                     options.title.text = (last_obj_id+1)+'号顾客';
-                    options.xAxis.categories = data['n_id'];
+                    options.xAxis = new Object();
+                    options.xAxis.categories = data['m_id'];
                     options.series = new Array();
                     options.series[0] = new Object();
                     options.series[0].name = 'need';
@@ -78,7 +82,10 @@ function scrollFunction(){
                     var chart = Highcharts.chart(id, options);
               }
               else{
-                    console.log(data['code']+"  "+data['message'])
+                    console.log(data['code']+"  "+data['message']);
+                    if(now-last>=3000){
+                        alert(data['code']+"  "+data['message']);
+                    }
               }
             },
             error: function(xhr){
@@ -114,3 +121,5 @@ function toUp(){
     // document.body.scrollTop = 0;
     // document.documentElement.scrollTop = 0;
 };
+
+
