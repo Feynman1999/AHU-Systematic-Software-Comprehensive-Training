@@ -59,8 +59,6 @@ function update_time_avaliable(){
                 var credits = {
                     enabled: false // 禁用版权信息
                };
-
-
                 var json = {}
                 json.chart = chart;
                 json.title = title_time;
