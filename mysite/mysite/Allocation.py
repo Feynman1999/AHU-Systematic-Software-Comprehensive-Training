@@ -135,7 +135,7 @@ class AllocatCls(object):
                 TmpVector = []
                 while WaitQueue.empty() == False:
                     Tmp = copy.deepcopy(WaitQueue.get())
-                    Tmp.append(Tmp)
+                    TmpVector.append(Tmp)
                     TmpQueue.put(Tmp) 
                 for it in TmpVector:
                     WaitQueue.put(it)
@@ -172,6 +172,6 @@ if __name__ == "__main__":
     MaxSource = data['MaxSource']
     AllocatedSource = data['AllocatedSource']
     NeedTime = data['NeedTime']
-    test = AllocatCls(3,3)
+    test = AllocatCls(10,10)
     test.LoadData(Available, MaxSource, AllocatedSource, NeedTime)
     test.Run()
