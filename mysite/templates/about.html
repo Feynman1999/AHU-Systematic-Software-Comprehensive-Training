@@ -15,7 +15,13 @@
 
 {% block content %}
 
-<h1 style="text-align:center;">敬请期待!</h1>
+<div class="jumbotron" style="text-align: center">
+    <h1>感谢您使用我们的系统</h1>
+    <p>在算法模拟室界面输入你设置的参数，点击提交按钮，你将会得到系统帮你随机好了的数据</p>
+    <p>在详细信息界面点击开始实验按钮，你将会得到你的实验结果</p>
+    <h2>点击下方按钮，开始您在本网站的旅行</h2>
+    <p><a class="btn btn-primary btn-lg" href="{% url 'index' %}" role="button">传送门</a></p>
+  </div>
 
 {% for item in test %}
     <br>
