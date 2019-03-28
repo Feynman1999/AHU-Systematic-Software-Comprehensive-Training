@@ -61,6 +61,7 @@ function real_time_usetime() {
                         if(mark>3)
                             clearInterval(window.setinit)
                     }else{
+                        mark=0
                         //添加一个点至图表最后，并使前方点向前挪动
                         chart.series[0].addPoint(data['usetime'],true,true,true);
                         data['safe_seq']
@@ -80,7 +81,7 @@ function real_time_usetime() {
 
 $(document).ready(function () {
     //每隔1秒自动调用方法，实现图表的实时更新  
-    window.setinit = setInterval(getFrom, 1000);
+    window.setinit = setInterval(getFrom, 3000);
     var mypanel = document.getElementById('mypanel');
     
 });

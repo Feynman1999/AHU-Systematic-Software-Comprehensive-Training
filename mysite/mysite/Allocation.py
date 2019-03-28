@@ -165,3 +165,11 @@ class AllocatCls(object):
                     
         if CanAlloc == False: # 不满足分配条件，进入递归
             self.Search(TimeNow,System,AllocatedSource,CanAlloc,deep,WaitQueue)
+
+
+def allocation(NumCustom,NumSource):
+    DataMaker = RandomData()
+    Available, MaxSource, AllocatedSource, NeedTime=DataMaker.random_Data(NumCustom,NumSource,10000)
+    test = AllocatCls(NumCustom,NumSource)
+    test.LoadData(Available, MaxSource, AllocatedSource, NeedTime)
+    test.Run()
